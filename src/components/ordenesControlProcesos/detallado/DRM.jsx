@@ -3,18 +3,18 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { formatFecha } from "../../utilidades/FormatearFecta";
 import Swal from 'sweetalert2'; // Importar SweetAlert
-
+const URL = process.env.REACT_APP_URL;
 const DRM = ({ encabezado, EncName, fecha_creacion, id }) => {
   const { handleSubmit, register } = useForm();
   const [merma, setMerma] = useState([]);
   const [modeloUF, setModeloUf] = useState([]);
-
+  const [formData, setFormData] = useState([]);
   // const id_area = 2;
 
   useEffect(() => {
     Promise.all([
-      axios.get(`http://localhost:3001/tipoMermas`),
-      axios.get(`http://localhost:3001/ModelosUF`),
+      axios.get(`${URL}/tipoMermas`),
+      axios.get(`${URL}/ModelosUF`),
     ])
       .then(([MermaResponse, ModelosResponse]) => {
         setMerma(MermaResponse.data);
@@ -35,7 +35,7 @@ const DRM = ({ encabezado, EncName, fecha_creacion, id }) => {
       });
       console.log("Datos formateados:", formattedData);
       // Enviamos los datos formateados al servidor
-      const response = await axios.post("http://localhost:3001/DRM", {
+      const response = await axios.post(`${URL}/DRM`, {
         id_CRM: id.toString(),
          formattedData
       });
@@ -58,12 +58,16 @@ const DRM = ({ encabezado, EncName, fecha_creacion, id }) => {
 
   const [inputs, setInputs] = useState([{ id: Date.now() }]);
 
+  // const handleAddInput = () => {
+  //   setInputs([...inputs, { id: Date.now() }]);
+ 
+ 
+  // };
   const handleAddInput = () => {
     setInputs([...inputs, { id: Date.now() }]);
- 
- 
+    // Agrega una nueva línea al estado formData cuando se hace clic en el botón "Agregar"
+    setFormData([...formData, {}]);
   };
-
   
 
   return (
