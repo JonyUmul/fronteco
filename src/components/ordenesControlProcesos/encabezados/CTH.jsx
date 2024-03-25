@@ -4,7 +4,7 @@ import axios from "axios";
 const URL = process.env.REACT_APP_URL;
 
 
-const FormEHP = () => {
+const CTH = () => {
   const { handleSubmit, register } = useForm();
   const [datos, setDatos] = useState({
     id_creador: "",
@@ -21,7 +21,7 @@ const FormEHP = () => {
     
       // Realizar la solicitud POST al servidor con los datos del formulario
       const response = await axios.post(
-        `${URL}/CPB`,
+        `${URL}/CTH`,
         formData
       );
       window.location.href = "/Home/TablaCP";
@@ -46,7 +46,7 @@ const dayMonthYear = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${c
   <div className="container">
     <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
       <div className="mb-3">
-        <h1>Control Pulida Inferior</h1>
+        <h1>Temperatura Hornos</h1>
         <h5 className="mt-3">Con fecha:</h5>
         <p>{dayMonthYear}</p>
       </div>
@@ -63,4 +63,4 @@ const dayMonthYear = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${c
 };
 
 
-    export default FormEHP;
+    export default CTH;
